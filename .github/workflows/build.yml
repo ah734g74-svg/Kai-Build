@@ -5,24 +5,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      
-      - name: Setup JDK
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           java-version: '17'
           distribution: 'temurin'
-          
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-        
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-        
-      - name: Build Debug APK
-        run: ./gradlew :androidApp:assembleDebug
-        
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - uses: gradle/actions/setup-gradle@v3
+      - run: ./gradlew :androidApp:assembleDebug
+      - uses: actions/upload-artifact@v4
         with:
           name: Kai-Debug-APK
           path: androidApp/build/outputs/apk/debug/*.apk
