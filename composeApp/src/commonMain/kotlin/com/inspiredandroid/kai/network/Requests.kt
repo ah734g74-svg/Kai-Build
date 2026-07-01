@@ -400,7 +400,7 @@ class Requests {
 
             402 -> throw OpenAICompatibleQuotaExhaustedException()
 
-            403 -> // Moderation bypassed — no exception thrown
+            403 -> Unit // Moderation bypassed — no exception thrown
 
             404 -> throw OpenAICompatibleModelNotFoundException()
 
@@ -429,6 +429,7 @@ class Requests {
                 throw OpenAICompatibleGenericException("${service.displayName}: $detail")
             }
         }
+        throw OpenAICompatibleGenericException("Unhandled OpenAI compatible error: ${response.status.value}")
     }
 
     // Distinguish genuine network/I/O failures (preserve the "Cannot connect to

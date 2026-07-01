@@ -99,9 +99,7 @@ fun Exception.toUiError(): UiError = when (this) {
 
     is OpenAICompatibleServiceUnavailableException -> UiError.Resource(Res.string.error_service_unavailable)
 
-    is OpenAICompatibleContentModerationException -> null
-        ?.let { UiError.ResourceWithDetail(Res.string.error_content_moderation, it) }
-        ?: null
+is OpenAICompatibleContentModerationException -> message?.let { UiError.ResourceWithDetail(Res.string.error_content_moderation, it) } ?: UiError.Resource(Res.string.error_content_moderation)
 
     is OpenAICompatibleProviderErrorException -> message?.takeIf { it.isNotBlank() }
         ?.let { UiError.ResourceWithDetail(Res.string.error_provider_error, it) }
