@@ -15,20 +15,17 @@ jobs:
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         
-      - name: Create screenshotTests directory
-        run: mkdir -p screenshotTests
-        
       - name: Setup Gradle
         uses: gradle/actions/setup-gradle@v3
         
       - name: Make gradlew executable
         run: chmod +x gradlew
         
-      - name: Build Debug APK
-        run: ./gradlew :androidApp:assembleDebug
+      - name: Build All Debug APKs
+        run: ./gradlew :androidApp:assembleDebug --stacktrace
         
-      - name: Upload APK
+      - name: Upload APKs
         uses: actions/upload-artifact@v4
         with:
-          name: Kai-Debug-APK
-          path: androidApp/build/outputs/apk/debug/*.apk
+          name: Kai-Debug-APKs
+          path: androidApp/build/outputs/apk/**/debug/*.apk
